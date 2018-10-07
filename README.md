@@ -9,8 +9,22 @@ Insteall the dependencies.
 > cd server && npm i
 
 > Note: This is a MERN application. Which means you need [Mongodb](https://docs.mongodb.com/manual/installation/) installed on your mechine.
-  2. Run the server: `node server.js`
+  2. Run the server: `node index.js`
   3. Run front-end: *(go to the root dir first: `cd ..`)*: `npm run dev`
   > This will start a server using [NextJS](https://nextjs.org/) framework.
-  
-NextJS is great for developments: it makes automatic code splitting, filesystem based routing, hot code reloading and universal rendering.
+  4. Populate the db with the initial collections:
+      
+        - Go to http://localhost:4000/graphql and place the following:
+            ``` 
+                mutation {
+                  setCategory(input: {name:"Test" }){
+                    id
+                    name
+                  }
+                }
+            ```
+            > This will create a category called `Test`(name it as you wish)
+        - Unzip the ams file and place it in your mongodb directory, then run: `mongorestore`
+        
+        Now you can start managing your projects :)
+    
