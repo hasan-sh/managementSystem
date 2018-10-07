@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    padding: 0;
+    margin: 0
+}
+
+.RX7MVaJTvfI0d1TLV5iSh {
+    display: flex;
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    position: relative;
+}
+
+._2YYvHDUSRNGCkUj-mVwZhA {
+    box-sizing: border-box;
+    flex: 1;
+    background-color: #f5f5f5;
+    color: #fff;
+    border: 1px#4b2d2dc4 dashed;
+}
+
+.xf2CNVnpIpLIYnm-TtbUA {
+    padding: 15px;
+    text-align: center;
+    background: #ffffff;
+    color: black;
+}
+
+._3nkArgLMY9XmvNlT0c9Rc_ {
+    background-color: #fff;
+    color: black;
+    margin: 20px 10px;
+    user-select: none;
+}
+
+._1BSiRWE8MFILM4yLT5sq4c {
+    background-color: #43af81;
+    color: white;
+    padding: 5px;
+    position: relative;
+
+}
+
+._3A-F62uFg3pPiCnQqqRnrM {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    cursor: pointer;
+}
+
+._3s0WPv16tlUgKIQY26t0ZT {
+    padding: 10px;
+    text-align: center;
+}
+
+
+._1B11RRH1Pa9nUY19GI0Erj {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    max-width: 200px;
+    background-color: white;
+    padding: 20px;
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+    z-index: 100;
+    box-shadow: 0px 2px 2px 0px #4b2d2dc4;
+
+}
+
+._1B11RRH1Pa9nUY19GI0Erj textarea {
+    flex: 1;
+}
+
+/*# sourceMappingURL=styles.chunk.css.map*/
