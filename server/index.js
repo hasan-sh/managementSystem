@@ -2,12 +2,12 @@ const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 const mongoose = require('mongoose')
 
-const { Category } = require('./db/Models')
+const models = require('./db/Models')
 const typeDefs = require('./graphql/typeDefs')
-const resolvers = require('./graphql/resolvers')(Category)
+const resolvers = require('./graphql/resolvers')(models)
 
 mongoose.connect(
-  'mongodb://localhost/ams',
+  'mongodb://localhost/newAms',
   { useNewUrlParser: true }
 )
 

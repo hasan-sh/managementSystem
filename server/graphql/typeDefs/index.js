@@ -2,8 +2,9 @@ const typeDefs = [
   `
     type Project {
       id: ID
-      title: String
+      title: String!
       description: String
+      category: ID
     }
     type Category {
       id: ID
@@ -18,7 +19,7 @@ const typeDefs = [
   
     input SetProjectInput {
       id: ID!
-      title: String
+      title: String!
       description: String
     }
   
@@ -28,21 +29,20 @@ const typeDefs = [
     }
     
     input MoveProjectInput {
-      fromCategoryId: ID!
       toCategoryId: ID!
       projectId: ID!
     }
 
     input RemoveProjectInput {
-      id: ID!
+      categoryId: ID!
       projectId: ID!
     }
 
     type Mutation {
       setCategory(input: categoryInput): Category
-      setProject(input: SetProjectInput): [Category]
+      setProject(input: SetProjectInput): [Category!]
       removeProject(input: RemoveProjectInput): [Project]
-      moveProject(input: MoveProjectInput) : Category
+      moveProject(input: MoveProjectInput) : [Category!]
     }
   
     schema {
