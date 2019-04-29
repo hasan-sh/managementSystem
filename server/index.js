@@ -6,8 +6,9 @@ const models = require('./db/Models')
 const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers')(models)
 
+// change the name of the db to whatever you want.
 mongoose.connect(
-  'mongodb://localhost/newAms',
+  'mongodb://localhost/ams',
   { useNewUrlParser: true }
 )
 
