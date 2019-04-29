@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import 'isomorphic-fetch'
 
-const API = 'http://localhost:4000/graphql'
 import css from '../style.css'
 
 export default class Project extends Component {
