@@ -1,10 +1,10 @@
 # managementSystem
 
-This is a simple managment tool system for orgenizing your projects.
+This is a simple management tool system for organizing your projects.
 
 ## Instructions: 
 
-Insteall the dependencies.
+Install the dependencies.
   1. npm i (assuming you're in the root dir)
 > cd server && npm i
 

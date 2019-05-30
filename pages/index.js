@@ -4,7 +4,6 @@ import 'isomorphic-fetch'
 import css from '../style.css'
 import Category from '../components/Category.js'
 import fetchFromGraphql from '../util/service'
-const API = 'http://localhost:4000/graphql'
 
 export default class ManagementSystem extends Component {
   static async getInitialProps() {
@@ -27,7 +26,7 @@ export default class ManagementSystem extends Component {
     this.state = {
       categories: [],
       title: '',
-      desc: ''
+      desc: '',
     }
   }
 
@@ -39,35 +38,15 @@ export default class ManagementSystem extends Component {
     const fromCategoryId = e.dataTransfer.getData('fromCategoryId')
     const draggedProject = JSON.parse(e.dataTransfer.getData('draggedProject'))
 
-    const categories = this.state.categories.slice()
     if (targetCategoryId === fromCategoryId) return
 
-    // To category..
-    let targetCategory = []
-    let targetCategoryIndex = -1
-    categories.forEach((category, index) => {
-      if (category.id === targetCategoryId) {
-        targetCategory = category
-        targetCategoryIndex = index
-      } else if (fromCategoryId === category.id) {
-        category.projects = category.projects.filter(
-          project => project.id !== draggedProject.id
-        )
-      }
-    })
-
-    targetCategory.projects.push(draggedProject)
-    categories.splice(targetCategoryIndex, 1, targetCategory)
-    this.setState({ categories })
-
-    this.updateDB({
-      fromCategoryId,
+    this.moveProject({
       toCategoryId: targetCategoryId,
-      projectId: draggedProject.id
+      projectId: draggedProject.id,
     })
   }
 
-  updateDB = async ({ fromCategoryId, toCategoryId, projectId }) => {
+  moveProject = async ({ toCategoryId, projectId }) => {
     const query = `
       mutation  MoveProject($input: MoveProjectInput) {
           moveProject(input: $input)
@@ -76,18 +55,17 @@ export default class ManagementSystem extends Component {
             name
             projects {
               title
+              description
               id
             }
           }
          }
     `
-    const data = await fetchFromGraphql(query, {
-      fromCategoryId,
+    const { moveProject: categories } = await fetchFromGraphql(query, {
       toCategoryId,
-      projectId
+      projectId,
     })
-
-    console.log(data)
+    this.setState({ categories })
   }
 
   removeProject = async (categoryId, projectId) => {
@@ -98,25 +76,19 @@ export default class ManagementSystem extends Component {
             id
             description
         }
-    }
-  `
-    const data = await fetchFromGraphql(query, {
-      id: categoryId,
-      projectId
+      }
+    `
+    const { removeProject: updatedProjects } = await fetchFromGraphql(query, {
+      categoryId,
+      projectId,
     })
-    console.log(data)
 
-    if (data) {
-      const categories = this.state.categories.slice()
-      categories.forEach((category, index) => {
-        if (category.id === categoryId) {
-          category.projects = category.projects.filter(
-            project => project.id !== projectId
-          )
-        }
-      })
-      this.setState({ categories })
-    }
+    const categories = this.state.categories.map(category =>
+      category.id === categoryId
+        ? { ...category, projects: updatedProjects }
+        : category
+    )
+    this.setState({ categories })
   }
 
   handleChange(event, type) {
@@ -128,25 +100,24 @@ export default class ManagementSystem extends Component {
     const { title, desc } = this.state
     if (title && desc) {
       const query = `
-    mutation  SetProject($input: SetProjectInput) {
-        setProject(input: $input) {
-          id
-          name
-          projects {
-            id
-            title
-            description
-          }
+        mutation  SetProject($input: SetProjectInput) {
+            setProject(input: $input) {
+              id
+              name
+              projects {
+                id
+                title
+                description
+              }
+            }
         }
-    }
-  `
+      `
 
       const data = await fetchFromGraphql(query, {
         title,
         description: desc,
-        id: this.state.categories[0].id
+        id: this.state.categories[0].id,
       })
-
       this.setState({ categories: data.setProject, title: '', desc: '' })
     } else {
       alert('Please, add title or description.')

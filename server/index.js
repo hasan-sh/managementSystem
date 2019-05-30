@@ -2,10 +2,11 @@ const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 const mongoose = require('mongoose')
 
-const { Category } = require('./db/Models')
+const models = require('./db/Models')
 const typeDefs = require('./graphql/typeDefs')
-const resolvers = require('./graphql/resolvers')(Category)
+const resolvers = require('./graphql/resolvers')(models)
 
+// change the name of the db to whatever you want.
 mongoose.connect(
   'mongodb://localhost/ams',
   { useNewUrlParser: true }
