@@ -14,7 +14,7 @@
   "author": "Hasan_Sh",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.1.0",
+    "apollo-server-express": "^2.14.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
